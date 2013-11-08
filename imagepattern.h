@@ -10,6 +10,12 @@ class ImagePattern : public Lz::Pattern
 public:
     ImagePattern(const QJsonObject& config);
     static bool checkConfig(const QJsonObject& config);
+
+    virtual RenderedPattern* render(const QJsonObject& request);
+
+    QString path();
+private:
+    QString m_path;
 };
 
 } // namespace Lz

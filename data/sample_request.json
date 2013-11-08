@@ -1,0 +1,16 @@
+{
+    "actions" :
+    {
+        "print" : True,
+        "save" : "./toSave/"
+    },
+    "patterns" :
+    [
+        "default"
+    ],
+    "info" :
+    {
+        "ФИО" : "Вася",
+        "Диагноз" : "Ныряй"
+    }
+}

@@ -1,7 +1,7 @@
 #include "pattern.h"
 #include "patternstorage.h"
 
-Lz::PatternStorage::PatternStorage()
+Lz::PatternStorage::PatternStorage(QObject* parent) : QObject(parent)
 {
 
 }
@@ -60,6 +60,7 @@ bool Lz::PatternStorage::loadPatterns(const QJsonObject& config)
             /* Report error. Later.  */
         }
     }
+    emit patternsUpdated();
     return true;
 }
 
@@ -75,5 +76,11 @@ bool Lz::PatternStorage::checkPattern(Pattern* pattern) const
     return pattern != 0;
 }
 
+
+Lz::Pattern* Lz::PatternStorage::pattern(const QString& name)
+{
+    if(m_patterns.contains(name)) return m_patterns[name];
+    else return 0;
+}
 
 //, QList<Field*> fields

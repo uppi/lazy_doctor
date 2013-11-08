@@ -4,24 +4,32 @@
 #include <QHash>
 #include <QUrl>
 #include <QJsonObject>
+#include <QObject>
+
+namespace Lz {
 
 /*  Forward declaration.  */
 class Pattern;
 
-namespace Lz {
-
-class PatternStorage
+class PatternStorage : public QObject
 {
+    Q_OBJECT
 public:
-    PatternStorage();
+    PatternStorage(QObject* parent = 0);
     ~PatternStorage();
 
     QHash<QString, Pattern*> patterns() const;
+
+    Pattern* pattern(const QString& name);
+
     bool loadPattern(QString name, Pattern* pattern);
     bool loadPatterns(const QJsonObject& config);
 
     bool checkKey(QString key) const;
     bool checkPattern(Pattern* pattern) const;
+
+signals:
+    void patternsUpdated();
 
 private:
     QHash<QString, Pattern*> m_patterns;

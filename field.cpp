@@ -4,6 +4,7 @@ namespace Lz {
 
 Field::Field()
 {
+
 }
 
 } // namespace Lz

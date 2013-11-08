@@ -16,11 +16,21 @@ SOURCES += main.cpp\
     pattern.cpp \
     field.cpp \
     patternstorage.cpp \
-    imagepattern.cpp
+    imagepattern.cpp \
+    renderedimagepattern.cpp \
+    renderedpattern.cpp \
+    patternlistwidget.cpp
 
 HEADERS  += lazymainwindow.h \
     core.h \
     pattern.h \
     field.h \
     patternstorage.h \
-    imagepattern.h
+    imagepattern.h \
+    renderedpattern.h \
+    renderedimagepattern.h \
+    patternlistwidget.h
+
+OTHER_FILES += \
+    data/sample_request.json \
+    data/sample_pattern_config.json

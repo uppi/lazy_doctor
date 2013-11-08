@@ -1,0 +1,28 @@
+{
+    "default": {
+        "type": "image",
+        "path": "./default_image_pattern.png",
+        "fields": {
+            "ФИО": [
+                [
+                    {
+                        "x": 80,
+                        "y": 120,
+                        "height": 25,
+                        "width": 100
+                    }
+                ]
+            ],
+            "Диагноз": [
+                [
+                    {
+                        "x": 80,
+                        "y": 180,
+                        "height": 25,
+                        "width": 100
+                    }
+                ]
+            ]
+        }
+    }
+}

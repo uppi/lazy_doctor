@@ -5,6 +5,8 @@
 
 namespace Lz {
 
+class RenderedPattern;
+
 class Pattern
 {
 public:
@@ -14,6 +16,8 @@ public:
     static bool checkConfig(const QJsonObject& config);
 
     static Pattern* construct(const QJsonObject& config);
+
+    virtual RenderedPattern* render(const QJsonObject& info) = 0;
 };
 
 } // namespace Lz

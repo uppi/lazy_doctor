@@ -1,0 +1,11 @@
+{
+   "ФИО": {
+      "description": "SomeDescription",
+      "message": "SomeMessage"
+   },
+   "appName": {
+      "description": "Home",
+      "message": "Welcome",
+      "imp":["awesome","best","good"]
+   }
+}
