@@ -2,6 +2,7 @@
 #define LZ_PATTERN_H
 
 #include <QJsonObject>
+#include <QStringList>
 
 namespace Lz {
 
@@ -10,14 +11,17 @@ class RenderedPattern;
 class Pattern
 {
 public:
-    Pattern();
+    Pattern(const QJsonObject& config);
     virtual ~Pattern();
-
-    static bool checkConfig(const QJsonObject& config);
 
     static Pattern* construct(const QJsonObject& config);
 
     virtual RenderedPattern* render(const QJsonObject& info) = 0;
+
+    QStringList fields();
+
+private:
+    QStringList m_fields;
 };
 
 } // namespace Lz

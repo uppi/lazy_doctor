@@ -1,5 +1,6 @@
 #include <QListWidgetItem>
 
+
 #include "patternstorage.h"
 #include "patternlistwidget.h"
 
@@ -7,7 +8,7 @@
 Lz::PatternListWidget::PatternListWidget(QWidget *parent) :
     QListWidget(parent)
 {
-    //connect(this, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(handleClicked(QListWidgetItem*)));
+
 }
 
 void Lz::PatternListWidget::updatePatternList()
@@ -33,16 +34,27 @@ void Lz::PatternListWidget::setPatternStorage(PatternStorage* storage)
 void Lz::PatternListWidget::handleClicked(QListWidgetItem* item)
 {
     item->setCheckState(item->checkState() == Qt::Unchecked ? Qt::Checked : Qt::Unchecked);
+    emit checkedItemsChanged();
 }
 
 QStringList Lz::PatternListWidget::checkedPatterns()
 {
-    auto patterns = m_patternStorage->patterns();
-    foreach(auto pattern, patterns.keys())
+    QStringList result;
+    for(int i = 0; i < this->count(); i++)
     {
-        QListWidgetItem* item = new QListWidgetItem(pattern);
-        item->setCheckState(Qt::Unchecked);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        this->addItem(item);
+        auto it = this->item(i);
+        if(it->checkState() == Qt::Checked) result.append(it->text());
     }
+    return result;
+}
+
+QJsonArray Lz::PatternListWidget::json()
+{
+    auto checked = checkedPatterns();
+    QJsonArray result;
+    foreach(auto p, checked)
+    {
+        result.append(p);
+    }
+    return result;
 }

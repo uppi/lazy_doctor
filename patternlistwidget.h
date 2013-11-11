@@ -2,6 +2,7 @@
 #define LZ_PATTERNLISTWIDGET_H
 
 #include <QListWidget>
+#include <QJsonArray>
 
 namespace Lz {
 
@@ -17,7 +18,11 @@ public:
 
     QStringList checkedPatterns();
 
+    QJsonArray json();
+
 signals:
+
+    void checkedItemsChanged();
 
 public slots:
     void updatePatternList();

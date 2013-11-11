@@ -39,11 +39,16 @@ bool Lz::Core::init(const QString& fileName)
         /* report error. */
         return false;
     }
+    auto dir = QDir(fileName);
+    dir.cdUp();
+    QDir::setCurrent(dir.path());
+
     return init(doc.object());
 }
 
 bool Lz::Core::render(const QJsonObject& request)
 {
+    qDebug() << "request: " << request;
     if(!request.contains("actions") || !request.value("actions").isObject())
     {
         /* report error */
@@ -54,7 +59,7 @@ bool Lz::Core::render(const QJsonObject& request)
         /* report error */
         return false;
     }
-    if(!request.contains("info") || !request.value("info").isObject())
+    if(!request.contains("fields") || !request.value("fields").isObject())
     {
         /* report error */
         return false;
@@ -101,7 +106,7 @@ bool Lz::Core::render(const QJsonObject& request)
         }
     }
 
-    QJsonObject info = request.value("info").toObject();
+    QJsonObject info = request.value("fields").toObject();
 
     foreach (auto patternName, patterns) {
         Pattern* pattern = m_patternStorage->pattern(patternName);

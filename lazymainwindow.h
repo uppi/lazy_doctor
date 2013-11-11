@@ -3,12 +3,14 @@
 
 #include <QMainWindow>
 #include <QListWidget>
+#include <QPushButton>
 
 namespace Lz
 {
 
 class Core;
 class PatternListWidget;
+class InfoForm;
 
 class MainWindow : public QMainWindow
 {
@@ -18,11 +20,15 @@ public:
     MainWindow(Core* core, QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void handleGoButtonClicked();
+
 private:
     Core* m_core;
 
-private:
     PatternListWidget* m_patternList;
+    InfoForm* m_infoForm;
+    QPushButton* m_goButton;
 };
 
 }

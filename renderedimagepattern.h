@@ -20,6 +20,8 @@ public:
     bool isCorrect();
 
 private:
+    QPair<QFont, QStringList> howToRender(const ImageField::Instance& fieldInstance, QString text);
+
     ImagePattern* m_pattern;
     QImage m_image;
 };

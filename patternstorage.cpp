@@ -82,5 +82,3 @@ Lz::Pattern* Lz::PatternStorage::pattern(const QString& name)
     if(m_patterns.contains(name)) return m_patterns[name];
     else return 0;
 }
-
-//, QList<Field*> fields

@@ -14,22 +14,24 @@ SOURCES += main.cpp\
         lazymainwindow.cpp \
     core.cpp \
     pattern.cpp \
-    field.cpp \
     patternstorage.cpp \
     imagepattern.cpp \
     renderedimagepattern.cpp \
     renderedpattern.cpp \
-    patternlistwidget.cpp
+    patternlistwidget.cpp \
+    infoform.cpp \
+    imagefield.cpp
 
 HEADERS  += lazymainwindow.h \
     core.h \
     pattern.h \
-    field.h \
     patternstorage.h \
     imagepattern.h \
     renderedpattern.h \
     renderedimagepattern.h \
-    patternlistwidget.h
+    patternlistwidget.h \
+    infoform.h \
+    imagefield.h
 
 OTHER_FILES += \
     data/sample_request.json \
