@@ -1,22 +1,27 @@
 {
-    "default": {
-        "type": "image",
-        "path": "./default_image_pattern.png",
-        "fields": {
-            "ФИО":
-            {
-                "x": 80,
-                "y": 120,
-                "h": 25,
-                "w": 100
-            },
-            "Диагноз":
-            {
-                "x": 80,
-                "y": 180,
-                "h": 25,
-                "w": 100
+    "patterns" : {
+        "default": {
+            "type": "image",
+            "path": "./default_image_pattern.png",
+            "fields": {
+                "ФИО":
+                [[{
+                    "x": 80,
+                    "y": 120,
+                    "h": 25,
+                    "w": 100
+                }],
+                [{
+                    "x": 80,
+                    "y": 180,
+                    "h": 25,
+                    "w": 100
+                }]]
             }
         }
+    },
+    "presets" : {
+        "death" : ["default"],
+        "life" : []
     }
 }

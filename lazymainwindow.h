@@ -11,6 +11,7 @@ namespace Lz
 class Core;
 class PatternListWidget;
 class InfoForm;
+class PresetComboBox;
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +29,7 @@ private:
 
     PatternListWidget* m_patternList;
     InfoForm* m_infoForm;
+    PresetComboBox* m_presetComboBox;
     QPushButton* m_goButton;
 };
 

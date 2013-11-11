@@ -17,9 +17,13 @@ Lz::ImagePattern::ImagePattern(const QJsonObject& config) : Pattern(config)
             {
                 m_imageFields[key] = new ImageField(val.toObject());
             }
+            else if(val.isArray())
+            {
+                m_imageFields[key] = new ImageField(val.toArray());
+            }
             else
             {
-                qDebug() << "not implemented yet ";
+                qDebug() << "field " << key <<" is incorrect!";
             }
         }
     }

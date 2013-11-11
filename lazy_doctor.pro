@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     renderedpattern.cpp \
     patternlistwidget.cpp \
     infoform.cpp \
-    imagefield.cpp
+    imagefield.cpp \
+    presetstorage.cpp \
+    presetcombobox.cpp
 
 HEADERS  += lazymainwindow.h \
     core.h \
@@ -31,7 +33,9 @@ HEADERS  += lazymainwindow.h \
     renderedimagepattern.h \
     patternlistwidget.h \
     infoform.h \
-    imagefield.h
+    imagefield.h \
+    presetstorage.h \
+    presetcombobox.h
 
 OTHER_FILES += \
     data/sample_request.json \

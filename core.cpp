@@ -8,6 +8,7 @@
 #include <QDebug>
 
 #include "patternstorage.h"
+#include "presetstorage.h"
 #include "pattern.h"
 #include "renderedpattern.h"
 
@@ -18,10 +19,20 @@ Lz::Core::Core(QObject* parent) : QObject(parent), m_patternStorage(0)
 
 }
 
-bool Lz::Core::init(const QJsonObject& patternConfig)
+bool Lz::Core::init(const QJsonObject& config)
 {
+    if(!config.contains("presets") || !config.value("presets").isObject() ||
+       !config.contains("patterns") || !config.value("patterns").isObject())
+    {
+        return false;
+    }
+    auto patternConfig = config.value("patterns").toObject();
+    auto presetConfig = config.value("presets").toObject();
     m_patternStorage = new PatternStorage(this);
+    m_presetStorage = new PresetStorage(this);
     if(!m_patternStorage->loadPatterns(patternConfig))
+        return false;
+    if(!m_presetStorage->loadPresets(presetConfig))
         return false;
     return true;
 }
@@ -132,4 +143,10 @@ bool Lz::Core::render(const QJsonObject& request)
 Lz::PatternStorage* Lz::Core::patternStorage()
 {
     return m_patternStorage;
+}
+
+
+Lz::PresetStorage* Lz::Core::presetStorage()
+{
+    return m_presetStorage;
 }

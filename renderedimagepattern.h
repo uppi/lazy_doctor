@@ -18,6 +18,8 @@ public:
     virtual void renderField(const QString& name, const QString& value);
 
     bool isCorrect();
+private:
+    static bool checkLine(const QString& line, const QFontMetrics& fm, int w, int h);
 
 private:
     QPair<QFont, QStringList> howToRender(const ImageField::Instance& fieldInstance, QString text);

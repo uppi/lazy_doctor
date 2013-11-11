@@ -7,6 +7,7 @@
 namespace Lz {
 
 class PatternStorage;
+class PresetStorage;
 
 class PatternListWidget : public QListWidget
 {
@@ -15,6 +16,8 @@ public:
     explicit PatternListWidget(QWidget *parent = 0);
 
     void setPatternStorage(PatternStorage* storage);
+
+    void setPresetStorage(PresetStorage* storage);
 
     QStringList checkedPatterns();
 
@@ -27,8 +30,10 @@ signals:
 public slots:
     void updatePatternList();
     void handleClicked(QListWidgetItem* item);
+    void updatePreset(QString presetName);
 
 private:
+    PresetStorage* m_presetStorage;
     PatternStorage* m_patternStorage;
 };
 

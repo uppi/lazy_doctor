@@ -14,8 +14,17 @@ Lz::ImageField::Line::Line(QJsonObject line)
 
 Lz::ImageField::ImageField(QJsonArray fullConfig)
 {
-    /* Not implemented yet.  */
-    Q_UNUSED(fullConfig);
+    if(checkFullConfig(fullConfig))
+    {
+        for(auto instance : fullConfig)
+        {
+            instances.append(Instance());
+            for(auto line : instance.toArray())
+            {
+                instances.last().append(Line(line.toObject()));
+            }
+        }
+    }
 }
 
 Lz::ImageField::ImageField(QJsonObject singleLine)
@@ -37,7 +46,15 @@ bool Lz::ImageField::checkSingleLine(QJsonObject singleLine)
 
 bool Lz::ImageField::checkFullConfig(QJsonArray fullConfig)
 {
-    /* Not implemented yet.  */
-    Q_UNUSED(fullConfig);
-    return false;
+    for(auto instance : fullConfig)
+    {
+        if(instance.isArray())
+        {
+            for(auto line : instance.toArray())
+            {
+                if(!line.isObject() && !checkSingleLine(line.toObject())) return false;
+            }
+        }
+    }
+    return true;
 }

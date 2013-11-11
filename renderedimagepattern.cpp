@@ -35,7 +35,12 @@ void Lz::RenderedImagePattern::renderField(const QString& name, const QString& v
     qDebug() << "Field " << name << "rendered as " << value;
 
     auto field = m_pattern->field(name);
-    foreach(auto instance, field->instances)
+    if(!field)
+    {
+        qDebug() << "Field " << name << "not found";
+        return;
+    }
+    for(auto instance : field->instances)
     {
         /* render a single instance */
         auto fontAndText = howToRender(instance, value);
@@ -46,11 +51,11 @@ void Lz::RenderedImagePattern::renderField(const QString& name, const QString& v
         {
             auto line = instance.at(i);
             auto text = fontAndText.second.at(i);
-            int w = fm.width(text);
             /* render a single line */
-            painter.drawText(line.x + line.w/2 - w/2, line.y + (line.h + h)/2, fontAndText.second.at(i));
+            painter.drawText(line.x, line.y + (line.h + h)/2, text);
         }
     }
+     qDebug() << "Field " << name << "rendered as " << value;
 }
 
 bool Lz::RenderedImagePattern::isCorrect()
@@ -61,24 +66,57 @@ bool Lz::RenderedImagePattern::isCorrect()
 
 QPair<QFont, QStringList> Lz::RenderedImagePattern::howToRender(const ImageField::Instance& fieldInstance, QString text)
 {
-    QStringList result;
-
-    for(int size = 32; size >= 8; size -= 2)
+    for(int size = 12; size >= 8; size -= 2)
     {
+        QStringList result;
         result.clear();
         QFont font("Helvetica", size);
         QFontMetrics fm(font);
-        int w = fm.width(text);
-        int h = fm.height();
-
-        if(fieldInstance.first().w >= w && fieldInstance.first().h >= h)
+        if(checkLine(text, fm, fieldInstance.first().w, fieldInstance.first().h))
         {
             result.append(text);
             return QPair<QFont, QStringList>(font, result);
         }
+        else if(fieldInstance.size() != 1)
+        {
+            QString test, resultLine;
+            auto words = text.split(" ");
+            auto i = 0;
+            while(words.size() != 0 && i < fieldInstance.size())
+            {
+                int w = fieldInstance.at(i).w;
+                int h = fieldInstance.at(i).h;
+                test = test.isEmpty() ? words.first() : test + " " + words.first();
+                if(checkLine(test, fm, w, h))
+                {
+                    resultLine = test;
+                    words.pop_front();
+                }
+                else
+                {
+                    result.push_back(resultLine);
+                    resultLine.clear();
+                    test.clear();
+                    i++;
+                }
+            }
+            if(!resultLine.isEmpty() && words.size() == 0)
+            {
+                result.push_back(resultLine);
+            }
+            if(words.size() == 0)
+            {
+                return QPair<QFont, QStringList>(font, result);
+            }
+        }
     }
-
-    /* We don't handle multiple lines now*/
-    //QStringList words = text.split(" ");
     return QPair<QFont, QStringList>();
+}
+
+bool Lz::RenderedImagePattern::checkLine(const QString& line, const QFontMetrics& fm, int w, int h)
+{
+    int fw = fm.width(line);
+    int fh = fm.height();
+
+    return (w >= fw && h >= fh);
 }

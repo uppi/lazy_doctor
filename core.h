@@ -7,6 +7,7 @@
 namespace Lz {
 
 class PatternStorage;
+class PresetStorage;
 
 class Core : public QObject
 {
@@ -16,13 +17,15 @@ public:
 
     bool render(const QJsonObject& request);
 
-    bool init(const QJsonObject& patternConfig);
+    bool init(const QJsonObject& config);
     bool init(const QString& fileName);
 
     PatternStorage* patternStorage();
+    PresetStorage* presetStorage();
 
 private:
     PatternStorage* m_patternStorage;
+    PresetStorage* m_presetStorage;
 };
 
 } // namespace Lz

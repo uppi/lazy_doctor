@@ -15,7 +15,7 @@ class PatternStorage : public QObject
 {
     Q_OBJECT
 public:
-    PatternStorage(QObject* parent = 0);
+    explicit PatternStorage(QObject* parent = 0);
     ~PatternStorage();
 
     QHash<QString, Pattern*> patterns() const;
