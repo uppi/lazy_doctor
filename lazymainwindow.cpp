@@ -130,6 +130,7 @@ void Lz::MainWindow::handleGoButtonClicked()
 void Lz::MainWindow::handleLoadFromDbButtonClicked()
 {
     SearchDialog dialog;
+    dialog.exec();
     /*
         m_infoForm->fill(request);
     */
@@ -153,6 +154,11 @@ void Lz::MainWindow::handleSaveCheckBoxStateChanged(int state)
 {
     Q_UNUSED(state)
     if(m_saveCheckBox->isChecked())
+    {
         m_savePath = QFileDialog::getExistingDirectory(this, "Выберите папку для сохранения");
-    if(m_savePath.isEmpty()) m_saveCheckBox->setChecked(false);
+        if(m_savePath.isEmpty())
+        {
+            m_saveCheckBox->setCheckState(Qt::Unchecked);
+        }
+    }
 }

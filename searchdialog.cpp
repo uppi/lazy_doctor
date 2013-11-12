@@ -20,6 +20,8 @@ Lz::SearchDialog::SearchDialog(QWidget *parent) :
     main->addWidget(m_tableView);
     main->addItem(controls);
 
+    setLayout(main);
+
     connect(m_okButton, SIGNAL(clicked()), this, SLOT(handleOkButtonClick()));
     connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(handleCancelButtonClick()));
 }
