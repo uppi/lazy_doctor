@@ -12,17 +12,17 @@ struct ImageField
 {
     struct Line
     {
-        Line(QJsonObject line);
+        Line(const QJsonObject& line);
         int x, y, h, w;
     };
 
     typedef QList<Line> Instance;
 
-    ImageField(QJsonObject singleLine);
-    ImageField(QJsonArray fullConfig);
+    ImageField(const QJsonObject& singleLine);
+    ImageField(const QJsonArray& fullConfig);
 
-    static bool checkSingleLine(QJsonObject singleLine);
-    static bool checkFullConfig(QJsonArray fullConfig);
+    static bool checkSingleLine(const QJsonObject& singleLine);
+    static bool checkFullConfig(const QJsonArray& fullConfig);
 
     QList<Instance> instances;
 };

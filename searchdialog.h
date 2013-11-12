@@ -2,6 +2,9 @@
 #define LZ_SEARCHDIALOG_H
 
 #include <QDialog>
+#include <QTableView>
+#include <QLineEdit>
+#include <QPushButton>
 
 namespace Lz {
 
@@ -15,6 +18,14 @@ signals:
 
 public slots:
 
+    void handleOkButtonClick();
+    void handleCancelButtonClick();
+
+private:
+    QTableView  * m_tableView;
+    QLineEdit   * m_searchLineEdit;
+    QPushButton * m_okButton;
+    QPushButton * m_cancelButton;
 };
 
 } // namespace Lz

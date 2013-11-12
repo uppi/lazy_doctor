@@ -1,6 +1,6 @@
 #include "imagefield.h"
 
-Lz::ImageField::Line::Line(QJsonObject line)
+Lz::ImageField::Line::Line(const QJsonObject& line)
 {
     if(checkSingleLine(line))
     {
@@ -12,7 +12,7 @@ Lz::ImageField::Line::Line(QJsonObject line)
     else x = y = h = w = 0;
 }
 
-Lz::ImageField::ImageField(QJsonArray fullConfig)
+Lz::ImageField::ImageField(const QJsonArray& fullConfig)
 {
     if(checkFullConfig(fullConfig))
     {
@@ -27,7 +27,7 @@ Lz::ImageField::ImageField(QJsonArray fullConfig)
     }
 }
 
-Lz::ImageField::ImageField(QJsonObject singleLine)
+Lz::ImageField::ImageField(const QJsonObject& singleLine)
 {
     if(checkSingleLine(singleLine))
     {
@@ -36,7 +36,7 @@ Lz::ImageField::ImageField(QJsonObject singleLine)
     }
 }
 
-bool Lz::ImageField::checkSingleLine(QJsonObject singleLine)
+bool Lz::ImageField::checkSingleLine(const QJsonObject& singleLine)
 {
     return (singleLine.contains("x") && singleLine.value("x").isDouble() &&
     singleLine.contains("y") && singleLine.value("y").isDouble() &&
@@ -44,7 +44,7 @@ bool Lz::ImageField::checkSingleLine(QJsonObject singleLine)
     singleLine.contains("w") && singleLine.value("w").isDouble());
 }
 
-bool Lz::ImageField::checkFullConfig(QJsonArray fullConfig)
+bool Lz::ImageField::checkFullConfig(const QJsonArray& fullConfig)
 {
     for(auto instance : fullConfig)
     {
