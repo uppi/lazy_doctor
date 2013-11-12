@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QListWidget>
+#include <QCheckBox>
 #include <QPushButton>
+#include <QEvent>
 
 namespace Lz
 {
@@ -26,6 +28,7 @@ public slots:
     void handleLoadFromDbButtonClicked();
     void handleSaveToDbButtonClicked();
     void handleClearButtonClicked();
+    void handleSaveCheckBoxStateChanged(int state);
 
 private:
     Core* m_core;
@@ -37,6 +40,9 @@ private:
     QPushButton* m_loadFromDbButton;
     QPushButton* m_saveToDbButton;
     QPushButton* m_clearButton;
+    QCheckBox* m_printCheckBox;
+    QCheckBox* m_saveCheckBox;
+    QString m_savePath;
 };
 
 }

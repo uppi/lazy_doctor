@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 QT_SELECT = qt5
-QT += core gui widgets
+QT += core gui widgets sql
 CONFIG += c++11
 
 TARGET = lazy_doctor

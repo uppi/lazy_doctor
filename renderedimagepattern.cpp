@@ -16,13 +16,13 @@ void Lz::RenderedImagePattern::print()
     qDebug() << "I am printed!";
 
     QLabel* label = new QLabel;
-    label->setPixmap(QPixmap::fromImage(m_image));
+    label->setPixmap(QPixmap::fromImage(m_image).scaledToHeight(1024));
     label->show();
 }
 
 void Lz::RenderedImagePattern::saveAsFile(const QString& path)
 {
-    qDebug() << "I am saved as file here: " << path;
+    qDebug() << "I am saved as file here: " << path + "." + m_pattern->path().split(".").last();
 }
 
 void Lz::RenderedImagePattern::renderField(const QString& name, const QString& value)

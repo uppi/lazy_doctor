@@ -3,12 +3,14 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDebug>
-
+#include <QKeyEvent>
+#include <QApplication>
 
 #include <QJsonObject>
 #include <QVBoxLayout>
 #include <QSpacerItem>
 #include <QGroupBox>
+#include <QFileDialog>
 
 
 #include "lazymainwindow.h"
@@ -23,6 +25,11 @@
 Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     : QMainWindow(parent), m_core(core)
 {
+    m_printCheckBox = new QCheckBox("Печатать");
+    m_printCheckBox->setChecked(true);
+    m_saveCheckBox = new QCheckBox("Сохранить на диск");
+    connect(m_saveCheckBox, SIGNAL(stateChanged(int)), this, SLOT(handleSaveCheckBoxStateChanged(int)));
+
     m_presetComboBox = new PresetComboBox();
     m_presetComboBox->setPresetStorage(m_core->presetStorage());
     m_presetComboBox->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -46,7 +53,9 @@ Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     m_clearButton = new QPushButton("Очистить");
     connect(m_clearButton, SIGNAL(clicked()), this, SLOT(handleClearButtonClicked()));
 
-    m_goButton = new QPushButton("Старт");
+    m_goButton = new QPushButton("  Старт  ");
+    m_goButton->setAutoDefault(true);
+    m_goButton->setDefault(true);
     connect(m_goButton, SIGNAL(clicked()), this, SLOT(handleGoButtonClicked()));
 
     QLayout* presetLayout = new QHBoxLayout();
@@ -82,6 +91,8 @@ Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
 
 
     QLayout* controlLayout = new QHBoxLayout();
+    controlLayout->addWidget(m_printCheckBox);
+    controlLayout->addWidget(m_saveCheckBox);
     controlLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));
     controlLayout->addWidget(m_goButton);
 
@@ -106,7 +117,8 @@ void Lz::MainWindow::handleGoButtonClicked()
 
     /* just a test */
     QJsonObject actions;
-    actions.insert("print", true);
+    if(m_printCheckBox->isChecked()) actions.insert("print", true);
+    if(m_saveCheckBox->isChecked()) actions.insert("save", m_savePath);
 
     request.insert("fields", fields);
     request.insert("patterns", patterns);
@@ -135,4 +147,12 @@ void Lz::MainWindow::handleClearButtonClicked()
 {
     QJsonObject request;
     m_infoForm->fill(request);
+}
+
+void Lz::MainWindow::handleSaveCheckBoxStateChanged(int state)
+{
+    Q_UNUSED(state)
+    if(m_saveCheckBox->isChecked())
+        m_savePath = QFileDialog::getExistingDirectory(this, "Выберите папку для сохранения");
+    if(m_savePath.isEmpty()) m_saveCheckBox->setChecked(false);
 }
