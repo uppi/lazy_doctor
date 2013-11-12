@@ -23,6 +23,9 @@ public:
 
 public slots:
     void handleGoButtonClicked();
+    void handleLoadFromDbButtonClicked();
+    void handleSaveToDbButtonClicked();
+    void handleClearButtonClicked();
 
 private:
     Core* m_core;
@@ -31,6 +34,9 @@ private:
     InfoForm* m_infoForm;
     PresetComboBox* m_presetComboBox;
     QPushButton* m_goButton;
+    QPushButton* m_loadFromDbButton;
+    QPushButton* m_saveToDbButton;
+    QPushButton* m_clearButton;
 };
 
 }

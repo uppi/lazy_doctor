@@ -145,8 +145,19 @@ Lz::PatternStorage* Lz::Core::patternStorage()
     return m_patternStorage;
 }
 
-
 Lz::PresetStorage* Lz::Core::presetStorage()
 {
     return m_presetStorage;
+}
+
+bool Lz::Core::saveToDb(const QJsonObject& request)
+{
+    Q_UNUSED(request);
+    return true;
+}
+
+QJsonObject Lz::Core::loadFromDb(const QJsonObject& request)
+{
+    Q_UNUSED(request);
+    return QJsonObject();
 }

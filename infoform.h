@@ -7,13 +7,14 @@
 #include <QString>
 #include <QFormLayout>
 #include <QListWidgetItem>
+#include <QScrollArea>
 
 namespace Lz {
 
 class PatternStorage;
 class PatternListWidget;
 
-class InfoForm : public QWidget
+class InfoForm : public QScrollArea
 {
     Q_OBJECT
 public:
@@ -23,6 +24,8 @@ public:
 
     void addField(const QString& name);
     void removeField(const QString& name);
+
+    void fill(const QJsonObject& request);
 
     void setFieldSelectionStatus(const QString& name, bool isSelected);
 

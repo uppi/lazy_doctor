@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     infoform.cpp \
     imagefield.cpp \
     presetstorage.cpp \
-    presetcombobox.cpp
+    presetcombobox.cpp \
+    searchdialog.cpp
 
 HEADERS  += lazymainwindow.h \
     core.h \
@@ -35,7 +36,8 @@ HEADERS  += lazymainwindow.h \
     infoform.h \
     imagefield.h \
     presetstorage.h \
-    presetcombobox.h
+    presetcombobox.h \
+    searchdialog.h
 
 OTHER_FILES += \
     data/sample_request.json \

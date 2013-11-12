@@ -6,7 +6,7 @@
 #include "patternlistwidget.h"
 #include "pattern.h"
 Lz::InfoForm::InfoForm(QWidget *parent) :
-    QWidget(parent), m_patternListWidget(0), m_patternStorage(0)
+    QScrollArea(parent), m_patternListWidget(0), m_patternStorage(0)
 {
     m_formLayout = new QFormLayout();
     setLayout(m_formLayout);
@@ -120,4 +120,20 @@ QJsonObject Lz::InfoForm::json()
         if(!text.isEmpty()) result.insert(name, text);
     }
     return result;
+}
+
+void Lz::InfoForm::fill(const QJsonObject& request)
+{
+    auto reqKeys = request.keys();
+    for(auto key: m_labels.keys())
+    {
+        if(reqKeys.contains(key) && request.value(key).isString())
+        {
+            if(m_labels[key]) m_labels[key]->setText(request.value(key).toString());
+        }
+        else
+        {
+            m_labels[key]->setText("");
+        }
+    }
 }
