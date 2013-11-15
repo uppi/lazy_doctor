@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     imagefield.cpp \
     presetstorage.cpp \
     presetcombobox.cpp \
-    searchdialog.cpp
+    searchdialog.cpp \
+    clientdatabase.cpp
 
 HEADERS  += lazymainwindow.h \
     core.h \
@@ -37,7 +38,8 @@ HEADERS  += lazymainwindow.h \
     imagefield.h \
     presetstorage.h \
     presetcombobox.h \
-    searchdialog.h
+    searchdialog.h \
+    clientdatabase.h
 
 OTHER_FILES += \
     data/sample_request.json \

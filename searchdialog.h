@@ -5,8 +5,12 @@
 #include <QTableView>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QSqlQueryModel>
+
 
 namespace Lz {
+
+class ClientDatabase;
 
 class SearchDialog : public QDialog
 {
@@ -26,6 +30,9 @@ private:
     QLineEdit   * m_searchLineEdit;
     QPushButton * m_okButton;
     QPushButton * m_cancelButton;
+
+    ClientDatabase * m_clientDatabase;
+    QSqlQueryModel * m_sqlQueryModel;
 };
 
 } // namespace Lz
