@@ -2,15 +2,14 @@
 #include <QSqlQuery>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include "clientdatabase.h"
+#include "clientstorage.h"
 #include "searchdialog.h"
+#include "core.h"
 
 
-Lz::SearchDialog::SearchDialog(QWidget *parent) :
-    QDialog(parent)
+Lz::SearchDialog::SearchDialog(Lz::Core* core, QWidget *parent) :
+    QDialog(parent), m_core(core)
 {
-
-
 
     m_okButton = new QPushButton("Ok");
     m_cancelButton = new QPushButton("Отмена");
@@ -27,9 +26,8 @@ Lz::SearchDialog::SearchDialog(QWidget *parent) :
 
     setLayout(main);
 
-    m_clientDatabase = new ClientDatabase();
+    m_clientDatabase = m_core->clientStorage();
     m_sqlQueryModel = new QSqlQueryModel();
-    m_clientDatabase->init("lol.sqlite");
     QSqlQuery query(m_clientDatabase->database());
     query.exec("SELECT * from clients");
     m_sqlQueryModel->setQuery(query);
@@ -43,11 +41,10 @@ Lz::SearchDialog::SearchDialog(QWidget *parent) :
 void Lz::SearchDialog::handleOkButtonClick()
 {
     qDebug() << "ok";
-    //accept();
+    accept();
 }
 void Lz::SearchDialog::handleCancelButtonClick()
 {
-    m_clientDatabase->populate();
     qDebug() << "cancel";
-    //reject();
+    reject();
 }

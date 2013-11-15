@@ -11,6 +11,7 @@
 #include "presetstorage.h"
 #include "pattern.h"
 #include "renderedpattern.h"
+#include "clientstorage.h"
 
 #include "core.h"
 
@@ -30,10 +31,12 @@ bool Lz::Core::init(const QJsonObject& config)
     auto presetConfig = config.value("presets").toObject();
     m_patternStorage = new PatternStorage(this);
     m_presetStorage = new PresetStorage(this);
+    m_clientStorage = new ClientStorage(this);
     if(!m_patternStorage->loadPatterns(patternConfig))
         return false;
     if(!m_presetStorage->loadPresets(presetConfig))
         return false;
+    if(!m_clientStorage->init("clients.sqlite"));
     return true;
 }
 
@@ -150,10 +153,18 @@ Lz::PresetStorage* Lz::Core::presetStorage()
     return m_presetStorage;
 }
 
+Lz::ClientStorage* Lz::Core::clientStorage()
+{
+    return m_clientStorage;
+}
+
 bool Lz::Core::saveToDb(const QJsonObject& request)
 {
-    Q_UNUSED(request);
-    return true;
+    if(m_clientStorage)
+    {
+        return m_clientStorage->add(request);
+    }
+    return false;
 }
 
 QJsonObject Lz::Core::loadFromDb(const QJsonObject& request)

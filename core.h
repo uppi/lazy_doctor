@@ -8,6 +8,7 @@ namespace Lz {
 
 class PatternStorage;
 class PresetStorage;
+class ClientStorage;
 
 class Core : public QObject
 {
@@ -24,11 +25,13 @@ public:
 
     PatternStorage* patternStorage();
     PresetStorage* presetStorage();
+    ClientStorage* clientStorage();
 
 
 private:
     PatternStorage* m_patternStorage;
     PresetStorage* m_presetStorage;
+    ClientStorage* m_clientStorage;
 };
 
 } // namespace Lz

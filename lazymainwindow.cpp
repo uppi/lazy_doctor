@@ -129,7 +129,7 @@ void Lz::MainWindow::handleGoButtonClicked()
 
 void Lz::MainWindow::handleLoadFromDbButtonClicked()
 {
-    SearchDialog dialog;
+    SearchDialog dialog(m_core);
     dialog.exec();
     /*
         m_infoForm->fill(request);

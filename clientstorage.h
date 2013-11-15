@@ -7,14 +7,18 @@
 
 namespace Lz {
 
-class ClientDatabase : public QObject
+class ClientStorage : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientDatabase(QObject *parent = 0);
+    explicit ClientStorage(QObject *parent = 0);
 
     bool init(QString dbName);
     bool populate();
+
+
+    bool add(const QJsonObject& client);
+    bool change(quint64 id, const QJsonObject& client);
 
     QSqlDatabase& database();
 signals:
