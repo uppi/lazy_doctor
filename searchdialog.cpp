@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "clientstorage.h"
@@ -27,15 +28,33 @@ Lz::SearchDialog::SearchDialog(Lz::Core* core, QWidget *parent) :
     setLayout(main);
 
     m_clientDatabase = m_core->clientStorage();
-    m_sqlQueryModel = new QSqlQueryModel();
-    QSqlQuery query(m_clientDatabase->database());
-    query.exec("SELECT * from clients");
-    m_sqlQueryModel->setQuery(query);
-    m_tableView->setModel(m_sqlQueryModel);
+
+    m_sqlTableModel = new QSqlTableModel(this, m_clientDatabase->database());
+    m_sqlTableModel->setTable("clients");
+    m_sqlTableModel->setEditStrategy(QSqlTableModel::OnFieldChange);
+    m_sqlTableModel->select();
+    m_tableView->setModel(m_sqlTableModel);
     m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_tableView->setSortingEnabled(true);
 
     connect(m_okButton, SIGNAL(clicked()), this, SLOT(handleOkButtonClick()));
     connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(handleCancelButtonClick()));
+}
+
+QJsonObject Lz::SearchDialog::selectedClient()
+{
+    QJsonObject result;
+    auto rows = m_tableView->selectionModel()->selectedRows();
+    if(rows.isEmpty()) return result;
+    QSqlRecord record = m_sqlTableModel->record(rows.at(0).row());
+
+    for(int i = 0; i < record.count(); i++)
+    {
+        result.insert(record.fieldName(i), record.value(i).toString());
+    }
+
+    return result;
 }
 
 void Lz::SearchDialog::handleOkButtonClick()

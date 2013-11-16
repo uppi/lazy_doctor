@@ -5,7 +5,7 @@
 #include <QTableView>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QSqlQueryModel>
+#include <QSqlTableModel>
 
 
 namespace Lz {
@@ -19,6 +19,7 @@ class SearchDialog : public QDialog
 public:
     explicit SearchDialog(Core *core, QWidget *parent = 0);
 
+    QJsonObject selectedClient();
 signals:
 
 public slots:
@@ -33,7 +34,7 @@ private:
     QPushButton * m_cancelButton;
 
     ClientStorage * m_clientDatabase;
-    QSqlQueryModel * m_sqlQueryModel;
+    QSqlTableModel * m_sqlTableModel;
 
     Core*           m_core;
 };

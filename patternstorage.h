@@ -28,6 +28,8 @@ public:
     bool checkKey(QString key) const;
     bool checkPattern(Pattern* pattern) const;
 
+    QStringList fields() const;
+
 signals:
     void patternsUpdated();
 

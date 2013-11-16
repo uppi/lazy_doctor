@@ -16,9 +16,7 @@ class Core : public QObject
 public:
     Core(QObject* parent = 0);
 
-    bool        render(const QJsonObject& request);
-    bool        saveToDb(const QJsonObject& request);
-    QJsonObject loadFromDb(const QJsonObject& request);
+    bool render(const QJsonObject& request);
 
     bool init(const QJsonObject& config);
     bool init(const QString& fileName);

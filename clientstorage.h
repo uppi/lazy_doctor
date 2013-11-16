@@ -13,12 +13,14 @@ class ClientStorage : public QObject
 public:
     explicit ClientStorage(QObject *parent = 0);
 
-    bool init(QString dbName);
+    bool init(const QString& dbName, QStringList fields);
     bool populate();
 
 
     bool add(const QJsonObject& client);
-    bool change(quint64 id, const QJsonObject& client);
+    bool update(quint64 id, const QJsonObject& client);
+    bool remove(quint64 id);
+
 
     QSqlDatabase& database();
 signals:

@@ -11,7 +11,6 @@ TARGET = lazy_doctor
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        lazymainwindow.cpp \
     core.cpp \
     pattern.cpp \
     patternstorage.cpp \
@@ -24,9 +23,10 @@ SOURCES += main.cpp\
     presetstorage.cpp \
     presetcombobox.cpp \
     searchdialog.cpp \
-    clientstorage.cpp
+    clientstorage.cpp \
+    mainwindow.cpp
 
-HEADERS  += lazymainwindow.h \
+HEADERS  += \
     core.h \
     pattern.h \
     patternstorage.h \
@@ -39,7 +39,8 @@ HEADERS  += lazymainwindow.h \
     presetstorage.h \
     presetcombobox.h \
     searchdialog.h \
-    clientstorage.h
+    clientstorage.h \
+    mainwindow.h
 
 OTHER_FILES += \
     data/sample_request.json \

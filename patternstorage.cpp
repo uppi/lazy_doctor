@@ -64,6 +64,16 @@ bool Lz::PatternStorage::loadPatterns(const QJsonObject& config)
     return true;
 }
 
+QStringList Lz::PatternStorage::fields() const
+{
+    QStringList result;
+    for(auto pattern : m_patterns)
+    {
+        result.append(pattern->fields());
+    }
+    return result;
+}
+
 bool Lz::PatternStorage::checkKey(QString key) const
 {
     /* Maybe later.  */

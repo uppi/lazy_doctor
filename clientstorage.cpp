@@ -1,4 +1,5 @@
 #include <QtSql>
+#include <QDebug>
 #include "clientstorage.h"
 
 Lz::ClientStorage::ClientStorage(QObject *parent) :
@@ -6,7 +7,7 @@ Lz::ClientStorage::ClientStorage(QObject *parent) :
 {
 }
 
-bool Lz::ClientStorage::init(QString dbName)
+bool Lz::ClientStorage::init(const QString& dbName, QStringList fields)
 {
     m_database = QSqlDatabase::addDatabase("QSQLITE");
     m_database.setDatabaseName(dbName);
@@ -15,16 +16,18 @@ bool Lz::ClientStorage::init(QString dbName)
         return false;
     }
     QSqlQuery query(m_database);
-    QString str = "CREATE TABLE clients ("
-            "ФИО VARCHAR(255) "
-            ");";
-    if(!query.exec(str)) qDebug() << "cann't create :(";
+    fields.append("");
+    QString fieldsString = fields.join(" VARCHAR(255) ");
+    QString request = QString("CREATE TABLE clients ( %1);").arg(fieldsString);
+    qDebug() << "we are trying to create a table using the following request: " << request;
+    if(!query.exec(request)) qDebug() << "can't create table";
     return true;
 }
 
 bool Lz::ClientStorage::add(const QJsonObject& client)
 {
     QSqlQuery query(m_database);
+
     QString keys, values;
     for(auto key : client.keys())
     {
@@ -42,19 +45,26 @@ bool Lz::ClientStorage::add(const QJsonObject& client)
         values = values.mid(0, values.size() - 2);
     }
     QString request = QString("INSERT INTO clients(%1) VALUES (%2);").arg(keys).arg(values);
-    qDebug() << "so we are trying to perform the next request " << request;
-    auto result = query.exec(request);
-    if (!result) {
+    qDebug() << "so we are trying to perform the following request " << request;
+    if(!query.exec(request))
+    {
         qDebug() << "Can't insert data";
         return false;
     }
     return true;
 }
 
-bool Lz::ClientStorage::change(quint64 id, const QJsonObject& client)
+bool Lz::ClientStorage::update(quint64 id, const QJsonObject& client)
 {
     Q_UNUSED(id);
-    Q_UNUSED(client)
+    Q_UNUSED(client);
+    return false;
+}
+
+bool Lz::ClientStorage::remove(quint64 id)
+{
+    Q_UNUSED(id);
+    return false;
 }
 
 QSqlDatabase& Lz::ClientStorage::database()

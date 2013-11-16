@@ -1,4 +1,4 @@
-#include "lazymainwindow.h"
+#include "mainwindow.h"
 #include "core.h"
 #include <QApplication>
 #include <QFileDialog>

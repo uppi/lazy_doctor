@@ -13,7 +13,7 @@
 #include <QFileDialog>
 
 
-#include "lazymainwindow.h"
+#include "mainwindow.h"
 #include "core.h"
 #include "patternstorage.h"
 #include "patternlistwidget.h"
@@ -21,6 +21,7 @@
 #include "presetstorage.h"
 #include "infoform.h"
 #include "searchdialog.h"
+#include "clientstorage.h"
 
 Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     : QMainWindow(parent), m_core(core)
@@ -130,18 +131,18 @@ void Lz::MainWindow::handleGoButtonClicked()
 void Lz::MainWindow::handleLoadFromDbButtonClicked()
 {
     SearchDialog dialog(m_core);
-    dialog.exec();
-    /*
-        m_infoForm->fill(request);
-    */
-    qDebug() << "load from db";
+    if(dialog.exec() != QDialog::Accepted) return;
+    auto result = dialog.selectedClient();
+    if(result.isEmpty()) return;
+    qDebug() << result;
+    m_infoForm->fill(result);
 }
 
 void Lz::MainWindow::handleSaveToDbButtonClicked()
 {
     QJsonObject request = m_infoForm->json();
     qDebug() << "save to db";
-    m_core->saveToDb(request);
+    m_core->clientStorage()->add(request);
 }
 
 void Lz::MainWindow::handleClearButtonClicked()

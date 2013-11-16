@@ -36,7 +36,8 @@ bool Lz::Core::init(const QJsonObject& config)
         return false;
     if(!m_presetStorage->loadPresets(presetConfig))
         return false;
-    if(!m_clientStorage->init("clients.sqlite"));
+    if(!m_clientStorage->init("clients.sqlite", m_patternStorage->fields()))
+        return false;
     return true;
 }
 
@@ -156,19 +157,4 @@ Lz::PresetStorage* Lz::Core::presetStorage()
 Lz::ClientStorage* Lz::Core::clientStorage()
 {
     return m_clientStorage;
-}
-
-bool Lz::Core::saveToDb(const QJsonObject& request)
-{
-    if(m_clientStorage)
-    {
-        return m_clientStorage->add(request);
-    }
-    return false;
-}
-
-QJsonObject Lz::Core::loadFromDb(const QJsonObject& request)
-{
-    Q_UNUSED(request);
-    return QJsonObject();
 }
