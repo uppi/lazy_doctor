@@ -11,7 +11,7 @@ Lz::RenderedImagePattern::RenderedImagePattern(ImagePattern* pattern) : m_patter
 
 }
 
-void Lz::RenderedImagePattern::print()
+void Lz::RenderedImagePattern::print() const
 {
     qDebug() << "I am printed!";
 
@@ -20,7 +20,7 @@ void Lz::RenderedImagePattern::print()
     label->show();
 }
 
-void Lz::RenderedImagePattern::saveAsFile(const QString& path)
+void Lz::RenderedImagePattern::saveAsFile(const QString& path) const
 {
     qDebug() << "I am saved as file here: " << path + "." + m_pattern->path().split(".").last();
 }
@@ -58,13 +58,13 @@ void Lz::RenderedImagePattern::renderField(const QString& name, const QString& v
      qDebug() << "Field " << name << "rendered as " << value;
 }
 
-bool Lz::RenderedImagePattern::isCorrect()
+bool Lz::RenderedImagePattern::isCorrect() const
 {
     /* Image is loaded aaand that's all, it seems.  */
     return !m_image.isNull();
 }
 
-QPair<QFont, QStringList> Lz::RenderedImagePattern::howToRender(const ImageField::Instance& fieldInstance, QString text)
+QPair<QFont, QStringList> Lz::RenderedImagePattern::howToRender(const ImageField::Instance& fieldInstance, QString text)  const
 {
     for(int size = 12; size >= 8; size -= 2)
     {
@@ -119,4 +119,9 @@ bool Lz::RenderedImagePattern::checkLine(const QString& line, const QFontMetrics
     int fh = fm.height();
 
     return (w >= fw && h >= fh);
+}
+
+const QImage& Lz::RenderedImagePattern::image() const
+{
+    return m_image;
 }

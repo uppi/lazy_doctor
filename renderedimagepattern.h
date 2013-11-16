@@ -13,16 +13,18 @@ class RenderedImagePattern : public Lz::RenderedPattern
 public:
     RenderedImagePattern(ImagePattern* pattern);
 
-    virtual void print();
-    virtual void saveAsFile(const QString& path);
+    virtual void print() const;
+    virtual void saveAsFile(const QString& path) const;
     virtual void renderField(const QString& name, const QString& value);
 
-    bool isCorrect();
+    bool isCorrect() const;
+
+    const QImage& image() const;
 private:
     static bool checkLine(const QString& line, const QFontMetrics& fm, int w, int h);
 
 private:
-    QPair<QFont, QStringList> howToRender(const ImageField::Instance& fieldInstance, QString text);
+    QPair<QFont, QStringList> howToRender(const ImageField::Instance& fieldInstance, QString text) const;
 
     ImagePattern* m_pattern;
     QImage m_image;

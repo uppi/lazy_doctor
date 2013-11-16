@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     presetcombobox.cpp \
     searchdialog.cpp \
     clientstorage.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    imagepatterneditor.cpp
 
 HEADERS  += \
     core.h \
@@ -40,7 +41,8 @@ HEADERS  += \
     presetcombobox.h \
     searchdialog.h \
     clientstorage.h \
-    mainwindow.h
+    mainwindow.h \
+    imagepatterneditor.h
 
 OTHER_FILES += \
     data/sample_request.json \

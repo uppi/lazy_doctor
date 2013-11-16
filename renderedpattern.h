@@ -16,8 +16,8 @@ public:
     void render(const QJsonObject& fields);
 
     virtual void renderField(const QString& name, const QString& value) = 0;
-    virtual void print() = 0;
-    virtual void saveAsFile(const QString& path) = 0;
+    virtual void print() const = 0;
+    virtual void saveAsFile(const QString& path) const = 0;
 };
 
 } // namespace Lz
