@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QApplication>
-
+#include <QMessageBox>
 #include <QJsonObject>
 #include <QVBoxLayout>
 #include <QSpacerItem>
@@ -19,8 +19,8 @@
 #include "patternlistwidget.h"
 #include "presetcombobox.h"
 #include "presetstorage.h"
-#include "infoform.h"
-#include "searchdialog.h"
+#include "clientform.h"
+#include "clientsearchdialog.h"
 #include "clientstorage.h"
 
 Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
@@ -42,7 +42,7 @@ Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     connect(m_presetComboBox, SIGNAL(currentTextChanged(QString)),
             m_patternList, SLOT(updatePreset(QString)));
 
-    m_infoForm = new InfoForm();
+    m_infoForm = new ClientForm();
     m_infoForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_infoForm->setPatternStorage(m_core->patternStorage());
     m_infoForm->setPatternListWidget(m_patternList);
@@ -130,7 +130,7 @@ void Lz::MainWindow::handleGoButtonClicked()
 
 void Lz::MainWindow::handleLoadFromDbButtonClicked()
 {
-    SearchDialog dialog(m_core);
+    ClientSearchDialog dialog(m_core);
     if(dialog.exec() != QDialog::Accepted) return;
     auto result = dialog.selectedClient();
     if(result.isEmpty()) return;
@@ -141,8 +141,27 @@ void Lz::MainWindow::handleLoadFromDbButtonClicked()
 void Lz::MainWindow::handleSaveToDbButtonClicked()
 {
     QJsonObject request = m_infoForm->json();
-    qDebug() << "save to db";
-    m_core->clientStorage()->add(request);
+    if(request.contains("__id__"))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Сохраняемые данные основываются на загруженных из базы.");
+        msgBox.setInformativeText("Переписать данные клиента?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+            case QMessageBox::Yes:
+                m_core->clientStorage()->add(request);
+                break;
+            case QMessageBox::No:
+                request.remove("__id__");
+                m_core->clientStorage()->add(request);
+                break;
+            case QMessageBox::Cancel:
+                break;
+        }
+    }
 }
 
 void Lz::MainWindow::handleClearButtonClicked()

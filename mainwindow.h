@@ -12,7 +12,7 @@ namespace Lz
 
 class Core;
 class PatternListWidget;
-class InfoForm;
+class ClientForm;
 class PresetComboBox;
 
 class MainWindow : public QMainWindow
@@ -34,7 +34,7 @@ private:
     Core* m_core;
 
     PatternListWidget* m_patternList;
-    InfoForm* m_infoForm;
+    ClientForm* m_infoForm;
     PresetComboBox* m_presetComboBox;
     QPushButton* m_goButton;
     QPushButton* m_loadFromDbButton;

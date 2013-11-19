@@ -51,7 +51,7 @@ bool Lz::ClientStorage::add(const QJsonObject& client)
             }
             else
             {
-                updateString = QString("%1%2=%3, ").arg(updateString).arg(key).arg(val);
+                updateString = QString("%1%2='%3', ").arg(updateString).arg(key).arg(val);
             }
         }
     }

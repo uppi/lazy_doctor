@@ -18,14 +18,14 @@ SOURCES += main.cpp\
     renderedimagepattern.cpp \
     renderedpattern.cpp \
     patternlistwidget.cpp \
-    infoform.cpp \
     imagefield.cpp \
     presetstorage.cpp \
     presetcombobox.cpp \
-    searchdialog.cpp \
     clientstorage.cpp \
     mainwindow.cpp \
-    imagepatterneditor.cpp
+    imagepatterneditor.cpp \
+    clientform.cpp \
+    clientsearchdialog.cpp
 
 HEADERS  += \
     core.h \
@@ -35,14 +35,14 @@ HEADERS  += \
     renderedpattern.h \
     renderedimagepattern.h \
     patternlistwidget.h \
-    infoform.h \
     imagefield.h \
     presetstorage.h \
     presetcombobox.h \
-    searchdialog.h \
     clientstorage.h \
     mainwindow.h \
-    imagepatterneditor.h
+    imagepatterneditor.h \
+    clientform.h \
+    clientsearchdialog.h
 
 OTHER_FILES += \
     data/sample_request.json \
