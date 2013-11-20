@@ -61,7 +61,7 @@ bool Lz::Core::init(const QString& fileName)
     return init(doc.object());
 }
 
-bool Lz::Core::render(const QJsonObject& request)
+bool Lz::Core::render(const QJsonObject& request, QPrinter* printer)
 {
     qDebug() << "request: " << request;
     if(!request.contains("actions") || !request.value("actions").isObject())
@@ -132,7 +132,7 @@ bool Lz::Core::render(const QJsonObject& request)
             {
                 if(printNeeded)
                 {
-                    rendered->print();
+                    rendered->print(printer);
                 }
                 if(!saveDirPath.isEmpty())
                 {

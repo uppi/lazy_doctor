@@ -13,7 +13,7 @@ class RenderedImagePattern : public Lz::RenderedPattern
 public:
     RenderedImagePattern(ImagePattern* pattern);
 
-    virtual void print() const;
+    virtual void print(QPrinter* printer) const;
     virtual void saveAsFile(const QString& path) const;
     virtual void renderField(const QString& name, const QString& value);
 

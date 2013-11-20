@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include <QPrinter>
 
 namespace Lz {
 
@@ -16,7 +17,7 @@ class Core : public QObject
 public:
     Core(QObject* parent = 0);
 
-    bool render(const QJsonObject& request);
+    bool render(const QJsonObject& request, QPrinter* printer);
 
     bool init(const QJsonObject& config);
     bool init(const QString& fileName);

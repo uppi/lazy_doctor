@@ -11,6 +11,8 @@
 #include <QSpacerItem>
 #include <QGroupBox>
 #include <QFileDialog>
+#include <QPrinter>
+#include <QPrintDialog>
 
 
 #include "mainwindow.h"
@@ -118,14 +120,26 @@ void Lz::MainWindow::handleGoButtonClicked()
 
     /* just a test */
     QJsonObject actions;
-    if(m_printCheckBox->isChecked()) actions.insert("print", true);
+    if(m_printCheckBox->isChecked())
     if(m_saveCheckBox->isChecked()) actions.insert("save", m_savePath);
 
     request.insert("fields", fields);
     request.insert("patterns", patterns);
-    request.insert("actions", actions);
 
-    m_core->render(request);
+
+    if(m_printCheckBox->isChecked())
+    {
+        QPrinter printer;
+        QPrintDialog printDialog(&printer, this);
+        if (printDialog.exec()) {
+            actions.insert("print", true);
+            request.insert("actions", actions);
+            m_core->render(request, &printer);
+            return;
+        }
+    }
+    request.insert("actions", actions);
+    m_core->render(request, 0);
 }
 
 void Lz::MainWindow::handleLoadFromDbButtonClicked()

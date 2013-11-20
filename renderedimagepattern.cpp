@@ -2,6 +2,8 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPair>
+#include <QRect>
+#include <QSize>
 #include "imagefield.h"
 #include "renderedimagepattern.h"
 
@@ -11,18 +13,29 @@ Lz::RenderedImagePattern::RenderedImagePattern(ImagePattern* pattern) : m_patter
 
 }
 
-void Lz::RenderedImagePattern::print() const
+void Lz::RenderedImagePattern::print(QPrinter* printer) const
 {
     qDebug() << "I am printed!";
 
-    QLabel* label = new QLabel;
+    QPainter painter(printer);
+    QRect rect = painter.viewport();
+    QSize size = m_image.size();
+    if(rect.size().width() < size.width() || rect.size().height() < size.height())
+        size.scale(rect.size(), Qt::KeepAspectRatio);
+    painter.setViewport(rect.x(), rect.y(),
+                        size.width(), size.height());
+    painter.setWindow(m_image.rect());
+    painter.drawImage(0, 0, m_image);
+
+    /*QLabel* label = new QLabel;
     label->setPixmap(QPixmap::fromImage(m_image).scaledToHeight(1024));
-    label->show();
+    label->show();*/
 }
 
 void Lz::RenderedImagePattern::saveAsFile(const QString& path) const
 {
     qDebug() << "I am saved as file here: " << path + "." + m_pattern->path().split(".").last();
+    //m_image.save();
 }
 
 void Lz::RenderedImagePattern::renderField(const QString& name, const QString& value)
