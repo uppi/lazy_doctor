@@ -14,12 +14,22 @@ namespace Lz {
 class ImagePattern : public Lz::Pattern
 {
 public:
+    /**
+     * @brief Construct image pattern from config.
+     * @param   config      Config as a json object: {type: "image", path: $path_to_image, fields: {$field1_name: $config, $field2_name: $config, ...}}
+     *
+     * @note    Config example can be found in data/sample_config.json as patterns.default value
+     */
     ImagePattern(const QJsonObject& config);
     static bool checkConfig(const QJsonObject& config);
 
     virtual RenderedPattern* render(const QJsonObject& request);
     ImageField* field(const QString& name);
 
+    /**
+     * @brief Path to image file.
+     * @return              Image file path.
+     */
     QString path();
 private:
     QString m_path;

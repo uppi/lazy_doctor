@@ -15,7 +15,7 @@ class PatternStorage;
 class PatternListWidget;
 
 /**
- * @brief QForm for client data input.
+ * @brief QForm to input data to be rendered (or saved into @a ClientStorage)
  */
 class ClientForm : public QScrollArea
 {
@@ -28,27 +28,50 @@ public:
     void addField(const QString& name);
     void removeField(const QString& name);
 
+    /**
+     * @brief   Fill the form with data from external storage.
+     *          Only the fields the form already contains are be filled.
+     * @param   request                 Data as a json object: {field_name : field_value, ...}.
+     * @note    if the request contains an @a __id__ field, it's value is stored as client id.
+     */
     void fill(const QJsonObject& request);
 
+    /**
+     * @brief   Set selection status of the field with given @a name.
+     *          It only affects the visualization, selected fields are shown with bold font.
+     * @param   name                    Field name.
+     * @param   isSelected              Selection status.
+     */
     void setFieldSelectionStatus(const QString& name, bool isSelected);
 
+    /**
+     * @brief   Data inputted to the form in json format
+     * @return                          Data as a json object: {field_name : field_value, ...}.
+     */
     QJsonObject json();
 
-signals:
-
 public slots:
+    /**
+     * @brief   Update the list of fields from @a PatternStorage.
+     *          The list contains every field @a Pattern instances contain.
+     */
     void updateFields();
+    /**
+     * @brief   Update selected fields from @a PatternListWidget.
+     *          Only the fields related to the @a Pattern instances checked in the @a PatternListWidget will be selected.
+     */
     void updateSelection();
+
     void handleCheckStateChanged(QListWidgetItem * item);
 
 private:
-    PatternListWidget *m_patternListWidget;
-    PatternStorage *m_patternStorage;
-    QHash<QString, QLineEdit*> m_labels;
+    PatternListWidget           *   m_patternListWidget;
+    PatternStorage              *   m_patternStorage;
+    QHash<QString, QLineEdit*>      m_labels;
 
-    QFormLayout * m_formLayout;
+    QFormLayout                 *   m_formLayout;
 
-    int m_id;
+    int                             m_id;
 };
 
 } // namespace Lz

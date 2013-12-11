@@ -34,18 +34,18 @@ public slots:
     void handleSaveCheckBoxStateChanged(int state);
 
 private:
-    Core* m_core;
+    Core                *   m_core;
 
-    PatternListWidget* m_patternList;
-    ClientForm* m_clientForm;
-    PresetComboBox* m_presetComboBox;
-    QPushButton* m_goButton;
-    QPushButton* m_loadFromDbButton;
-    QPushButton* m_saveToDbButton;
-    QPushButton* m_clearButton;
-    QCheckBox* m_printCheckBox;
-    QCheckBox* m_saveCheckBox;
-    QString m_savePath;
+    PatternListWidget   *   m_patternList;
+    ClientForm          *   m_clientForm;
+    PresetComboBox      *   m_presetComboBox;
+    QPushButton         *   m_goButton;
+    QPushButton         *   m_loadFromDbButton;
+    QPushButton         *   m_saveToDbButton;
+    QPushButton         *   m_clearButton;
+    QCheckBox           *   m_printCheckBox;
+    QCheckBox           *   m_saveCheckBox;
+    QString                 m_savePath;
 };
 
 }

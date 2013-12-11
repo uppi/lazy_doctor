@@ -11,7 +11,8 @@ bool Lz::ClientStorage::init(const QString& dbName, QStringList fields)
 {
     m_database = QSqlDatabase::addDatabase("QSQLITE");
     m_database.setDatabaseName(dbName);
-    if (!m_database.open()) {
+    if (!m_database.open())
+    {
         qDebug() << "Can't open database";
         return false;
     }
@@ -81,13 +82,6 @@ bool Lz::ClientStorage::add(const QJsonObject& client)
         return false;
     }
     return true;
-}
-
-bool Lz::ClientStorage::update(quint64 id, const QJsonObject& client)
-{
-    Q_UNUSED(id);
-    Q_UNUSED(client);
-    return false;
 }
 
 bool Lz::ClientStorage::remove(quint64 id)

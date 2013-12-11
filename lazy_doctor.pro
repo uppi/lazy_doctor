@@ -46,4 +46,4 @@ HEADERS  += \
 
 OTHER_FILES += \
     data/sample_request.json \
-    data/sample_pattern_config.json
+    data/sample_config.json

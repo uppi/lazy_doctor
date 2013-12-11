@@ -10,7 +10,7 @@ namespace Lz {
 
 /**
  * @brief An abstract parent for patterns filled with data.
- *  To be used while rendering text before printing and while editing patterns in GUI editor.
+ *  To be used while rendering text before printing and while editing patterns in GUI editor (e. g. @a ImagePatternEditor).
  */
 class RenderedPattern
 {

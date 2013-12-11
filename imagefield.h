@@ -23,7 +23,16 @@ struct ImageField
 
     typedef QList<Line> Instance;
 
+    /**
+     * @brief Construct from simple config (i. e. config for a single line)
+     * @param singleLine            Config as a json object : {x: int_val, y: int_val, h: height_int_val, w: width_int_val}
+     */
     ImageField(const QJsonObject& singleLine);
+    /**
+     * @brief Construct from full config
+     * @param fullConfig            Config as a json object (list of instances, each of these is an array of lines) :
+     *                              [[singleLineConfig, singleLineConfig, ..], [singleLineConfig, singleLineConfig, ..],]
+     */
     ImageField(const QJsonArray& fullConfig);
 
     static bool checkSingleLine(const QJsonObject& singleLine);
