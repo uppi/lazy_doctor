@@ -23,6 +23,7 @@ public:
     /**
      * @brief   Main action (print, save as file)
      * @param   request                 Request in json format.
+     * @param   printer                 Printer object.
      * @return                          True on success, false otherwise
      *
      * @todo    Describe request format
