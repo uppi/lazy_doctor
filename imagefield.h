@@ -7,9 +7,14 @@
 
 namespace Lz {
 
-
+/**
+ * @brief Multilined text field in the @a ImagePattern
+ */
 struct ImageField
 {
+    /**
+     * @brief Single line in the @a ImageField
+     */
     struct Line
     {
         Line(const QJsonObject& line);

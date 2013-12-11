@@ -44,10 +44,10 @@ Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     connect(m_presetComboBox, SIGNAL(currentTextChanged(QString)),
             m_patternList, SLOT(updatePreset(QString)));
 
-    m_infoForm = new ClientForm();
-    m_infoForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_infoForm->setPatternStorage(m_core->patternStorage());
-    m_infoForm->setPatternListWidget(m_patternList);
+    m_clientForm = new ClientForm();
+    m_clientForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_clientForm->setPatternStorage(m_core->patternStorage());
+    m_clientForm->setPatternListWidget(m_patternList);
 
     m_loadFromDbButton = new QPushButton("Найти в базе");
     connect(m_loadFromDbButton, SIGNAL(clicked()), this, SLOT(handleLoadFromDbButtonClicked()));
@@ -79,7 +79,7 @@ Lz::MainWindow::MainWindow(Lz::Core* core, QWidget *parent)
     formControlLayout->addWidget(m_clearButton);
 
     QLayout* formWithControlLayout = new QVBoxLayout();
-    formWithControlLayout->addWidget(m_infoForm);
+    formWithControlLayout->addWidget(m_clientForm);
     formWithControlLayout->addItem(formControlLayout);
 
     QGroupBox* formGroupBox = new QGroupBox(" Данные ");
@@ -115,7 +115,7 @@ Lz::MainWindow::~MainWindow()
 void Lz::MainWindow::handleGoButtonClicked()
 {
     QJsonObject request;
-    QJsonObject fields = m_infoForm->json();
+    QJsonObject fields = m_clientForm->json();
     QJsonArray patterns = m_patternList->json();
 
     /* just a test */
@@ -149,19 +149,23 @@ void Lz::MainWindow::handleLoadFromDbButtonClicked()
     auto result = dialog.selectedClient();
     if(result.isEmpty()) return;
     qDebug() << result;
-    m_infoForm->fill(result);
+    m_clientForm->fill(result);
 }
 
 void Lz::MainWindow::handleSaveToDbButtonClicked()
 {
-    QJsonObject request = m_infoForm->json();
+    QJsonObject request = m_clientForm->json();
     if(request.contains("__id__"))
     {
         QMessageBox msgBox;
         msgBox.setText("Сохраняемые данные основываются на загруженных из базы.");
+         
         msgBox.setInformativeText("Переписать данные клиента?");
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.button(QMessageBox::Yes)->setText("Переписать");
+        msgBox.button(QMessageBox::No)->setText("Добавить нового");
+        msgBox.button(QMessageBox::Cancel)->setText("Отмена");
         int ret = msgBox.exec();
 
         switch (ret) {
@@ -181,7 +185,7 @@ void Lz::MainWindow::handleSaveToDbButtonClicked()
 void Lz::MainWindow::handleClearButtonClicked()
 {
     QJsonObject request;
-    m_infoForm->fill(request);
+    m_clientForm->fill(request);
 }
 
 void Lz::MainWindow::handleSaveCheckBoxStateChanged(int state)

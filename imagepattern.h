@@ -8,6 +8,9 @@
 
 namespace Lz {
 
+/**
+ * @brief @a Pattern which consists of an image and a list of named text fields with coordinates (@a ImageField).
+ */
 class ImagePattern : public Lz::Pattern
 {
 public:

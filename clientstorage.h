@@ -7,6 +7,9 @@
 
 namespace Lz {
 
+/**
+ * @brief Storage for clients
+ */
 class ClientStorage : public QObject
 {
     Q_OBJECT

@@ -11,6 +11,9 @@ class PatternStorage;
 class PresetStorage;
 class ClientStorage;
 
+/**
+ * @brief Program core.
+ */
 class Core : public QObject
 {
     Q_OBJECT

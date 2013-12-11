@@ -8,6 +8,9 @@
 
 namespace Lz {
 
+/**
+ * @brief @a ImagePattern filled with data.
+ */
 class RenderedImagePattern : public Lz::RenderedPattern
 {
 public:

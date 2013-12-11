@@ -11,6 +11,9 @@ namespace Lz {
 /*  Forward declaration.  */
 class Pattern;
 
+/**
+ * @brief Storage for @a Pattern instances.
+ */
 class PatternStorage : public QObject
 {
     Q_OBJECT

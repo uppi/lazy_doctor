@@ -8,6 +8,9 @@ namespace Lz {
 class ImagePattern;
 class RenderedImagePattern;
 
+/**
+ * @brief GUI Widget for creating and editing @a ImagePattern objects.
+ */
 class ImagePatternEditor : public QLabel
 {
     Q_OBJECT

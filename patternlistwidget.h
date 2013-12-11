@@ -9,6 +9,9 @@ namespace Lz {
 class PatternStorage;
 class PresetStorage;
 
+/**
+ * @brief QListWidget for @a Preset instances.
+ */
 class PatternListWidget : public QListWidget
 {
     Q_OBJECT

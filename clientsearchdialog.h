@@ -10,9 +10,13 @@
 
 namespace Lz {
 
+
 class ClientStorage;
 class Core;
 
+/**
+ * @brief QDialog used to search for clients in @a ClientStorage
+ */
 class ClientSearchDialog : public QDialog
 {
     Q_OBJECT

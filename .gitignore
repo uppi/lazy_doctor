@@ -1,3 +1,4 @@
 *.user
 .DS*
 *.sqlite
+doxygen_results*

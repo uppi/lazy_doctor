@@ -6,8 +6,12 @@
 
 namespace Lz {
 
+/* Forward declaration.  */
 class RenderedPattern;
 
+/**
+ * @brief Abstract parent for patterns of different formats (image, docx, ...)
+ */
 class Pattern
 {
 public:

@@ -15,6 +15,9 @@ class PatternListWidget;
 class ClientForm;
 class PresetComboBox;
 
+/**
+ * @brief Main window
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -34,7 +37,7 @@ private:
     Core* m_core;
 
     PatternListWidget* m_patternList;
-    ClientForm* m_infoForm;
+    ClientForm* m_clientForm;
     PresetComboBox* m_presetComboBox;
     QPushButton* m_goButton;
     QPushButton* m_loadFromDbButton;

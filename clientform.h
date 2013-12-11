@@ -14,6 +14,9 @@ namespace Lz {
 class PatternStorage;
 class PatternListWidget;
 
+/**
+ * @brief QForm for client data input.
+ */
 class ClientForm : public QScrollArea
 {
     Q_OBJECT

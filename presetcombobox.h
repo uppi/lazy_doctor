@@ -9,6 +9,9 @@ namespace Lz {
 
 class PresetStorage;
 
+/**
+ * @brief QComboBox for @a Preset instances.
+ */
 class PresetComboBox : public QComboBox
 {
     Q_OBJECT

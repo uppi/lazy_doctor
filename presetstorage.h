@@ -10,9 +10,14 @@
 #include <QJsonArray>
 
 namespace Lz {
+/**
+ * @brief Set of the names of @a Pattern objects to be rendered.
+ */
+class Preset : public QList<QString> {};
 
-typedef QList<QString> Preset;
-
+/**
+ * @brief Storage class for @a Preset objects.
+ */
 class PresetStorage : public QObject
 {
     Q_OBJECT
